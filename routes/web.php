@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 
 Route::post('/addNewApplicant', [AdminController::class, 'addNewApplicant'])->name('addNewApplicant');
+Route::get('/showApplicantInfo', [AdminController::class, 'showApplicantInfo'])->name('showApplicantInfo');

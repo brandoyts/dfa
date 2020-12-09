@@ -7,6 +7,7 @@ use App\Models\PersonalInfo;
 use App\Models\PersonalContact;
 use App\Models\FamilyBackground;
 use App\Models\ApplicantInfo;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -54,5 +55,17 @@ class AdminController extends Controller
         $newApplicantInfo->save();
 
         return back();
+    }
+
+    public function showApplicantInfo(Request $request) {
+        $applicantInfo = DB::table('personal_information')
+        ->where('personal_information.personal_id', $request->applicant_id)
+        ->join('family_background', 'personal_information.personal_id', '=', 'family_background.personal_id')
+        ->join('personal_contact', 'personal_information.personal_id', '=', 'personal_contact.personal_id')
+        ->join('applicants_info', 'personal_information.personal_id', '=', 'applicants_info.personal_id')
+        ->get()
+        ->toArray();
+
+        return view('layouts.applicant_info', compact('applicantInfo'));
     }
 }

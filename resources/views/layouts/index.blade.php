@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   @include('layouts.includes.head')
-</head>
-<body>
-    <div class="container">
-        <div class="cta-container">
-            <a href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal" class="cta-btn">NEW APPLICANT</a>
-            <div class="vertical-divider"></div>
-            <a href="#" class="cta-btn">APPLICATION CODE</a>
-        </div>
+@extends('layouts.app')
+@section('content')
+<div class="container">
+    <div id="clock">
+        <span id="date"></span>
+        <span id="time"></span>
     </div>
+    <div class="cta-container">
+        <a href="#"  data-bs-toggle="modal" data-bs-target="#exampleModal1" class="cta-btn">NEW APPLICANT</a>
+        <div class="vertical-divider"></div>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal2" class="cta-btn">APPLICATION CODE</a>
+    </div>
+</div>
 
 
     <!-- Modal 1-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -599,6 +599,64 @@
         </div>
         </div>
     </div>
-    @include('layouts.includes.footer')
-</body>
-</html>
+
+    <!-- Modal 2-->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            
+
+            <section class="card" id="w1">
+                <header class="card-header">
+                    <h2 class="card-title">Search Applicant</h2>
+                </header>
+
+                <div class="card-body card-body-nopadding">
+                    <form action="{{ route('showApplicantInfo') }}" method="GET" class="form-horizontal" novalidate="novalidate">
+                        @csrf
+                        <div class="form-group">
+                            <label
+                                class="col-sm-4 control-label text-sm-right pt-1"
+                                for="w1-username"
+                                >Applicant ID: </label
+                            >
+                            <div class="col-sm-8">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="applicant_id"
+                                    id="applicant_id"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        </div>
+    </div>
+    <script type="text/python" id="script0" defer>
+        from browser import document, console, window
+        from javascript import Date
+
+        def ticker():
+            hours = Date.new().getHours() - 12;
+            minutes = Date.new().getMinutes();
+            seconds = Date.new().getSeconds();
+            
+            time = "%i:%i:%i" % (hours, minutes,seconds)
+            document['time'].innerText = time
+
+        
+        window.setInterval(ticker, 1000)
+        document['date'].innerText = Date.new().toDateString()
+    </script>
+@endsection
