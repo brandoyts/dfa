@@ -18,7 +18,7 @@
                     <table class="table table-dark">
                         <thead>
                         <tr>
-                            <th scope="col">Applicant ID</th>
+                            <th scope="col">Passport ID</th>
                             <th scope="col">Basis</th>
                             <th scope="col">Emergency Contact</th>
                             <th scope="col">Foreign Passport Holder</th>

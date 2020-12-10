@@ -77,3 +77,24 @@ body {
     background-color: #000;
     padding: 16px;
 }
+
+.error-msg,
+.success-msg {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    font-weight: bold;
+    font-size: 36px;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+}
+
+.error-msg {
+    background-color: crimson;
+}
+
+.success-msg {
+    background-color: rgb(58, 141, 58);
+}

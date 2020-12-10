@@ -7,11 +7,18 @@ use App\Models\PersonalInfo;
 use App\Models\PersonalContact;
 use App\Models\FamilyBackground;
 use App\Models\ApplicantInfo;
+use App\Models\Appointment;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function addNewApplicant(Request $request) {
+        $appointmentCount = Appointment::where('DOA', $request->schedule)->count();
+
+        if ($appointmentCount >= 10) {
+            return back()->with('fail', 'Schedule is full. Try Again.')->withInput();
+        } 
+
         $newPersonalInfo = new PersonalInfo;
         $newPersonalInfo->name = $request->firstname;
         $newPersonalInfo->middle = $request->middlename;
@@ -54,7 +61,12 @@ class AdminController extends Controller
         $newApplicantInfo->foreign_passport = $request->holder;
         $newApplicantInfo->save();
 
-        return back();
+        $newAppointment = new Appointment;
+        $newAppointment->personal_id = $newPersonalInfo->id;
+        $newAppointment->doa = $request->schedule;
+        $newAppointment->save();
+
+        return back()->with('success', 'Passport ID: ' . $newPersonalInfo->id);
     }
 
     public function showApplicantInfo(Request $request) {
